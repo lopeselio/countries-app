@@ -1,21 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
+// import Countries from "./screens/country"
+import Api from "./components/api"
 
-export default function App() {
+function Feed({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button title="Open" onPress={() => navigation.openDrawer()} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Close drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+    </DrawerContentScrollView>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="Home" component={Feed} />
+      <Drawer.Screen name="Countries" component={Api} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyDrawer />
+    </NavigationContainer>
+  );
+}
