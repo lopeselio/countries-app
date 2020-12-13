@@ -42,14 +42,12 @@ class Api extends Component {
         }
         
         const unique = [...new Set(data.map(item => item.region))];
-
         
-
-        const ListItem = ({ title }) => (
+        const ListItem = ({ title}) => (
         <View style={styles.item}>
             <Button
                 title={title}
-                onPress={() => Alert.alert('Simple Button pressed')}
+                onPress={() => this.props.navigation.navigate('Countries')}
                 type="outline"
             />
         </View>
