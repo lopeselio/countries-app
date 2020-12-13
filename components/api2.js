@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { Button, FlatList, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+import { Alert, FlatList, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+import { Button } from 'react-native-elements';
 
 class Api extends Component {
     // state = {
@@ -18,14 +19,14 @@ class Api extends Component {
         }
     }
     componentDidMount(){
-     return fetch('https://restcountries.eu/rest/v2/all?fields=region')
+     return fetch('https://restcountries.eu/rest/v2/all?fields=region;name;capital;flag')
       .then((response) => response.json())
       .then((responseJson) => {
           this.setState({
               isloading: false,
               data: responseJson
           })
-        //   console.log(responseJson)
+          console.log(responseJson)
       })
     }
 
@@ -49,6 +50,7 @@ class Api extends Component {
             <Button
                 title={title}
                 onPress={() => Alert.alert('Simple Button pressed')}
+                type="outline"
             />
         </View>
         );
