@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { FlatList, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
 
 class Api extends Component {
     // state = {
@@ -41,14 +41,15 @@ class Api extends Component {
         }
         
         const unique = [...new Set(data.map(item => item.region))];
-        console.log(unique)
 
         
 
         const ListItem = ({ title }) => (
-        <View>
-            <Text>{title}</Text>
-            ...
+        <View style={styles.item}>
+            <Button
+                title={title}
+                onPress={() => Alert.alert('Simple Button pressed')}
+            />
         </View>
         );
 
@@ -59,15 +60,17 @@ class Api extends Component {
 
         return (
             // <View style={styles.container}>{name}</View>
+            <View style={styles.container}>
             <FlatList
-            data={this.state.unique}
-            keyExtractor={item => item}
+            data={unique.filter(Boolean)}
+            keyExtractor={item => item.toString()}
             renderItem={({ item }) => (
                 <ListItem
                     title={item}
                 />
             )}
             />
+            </View>
         )
        
     }
@@ -78,6 +81,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 250
     },
     item: {
         flex: 1,
