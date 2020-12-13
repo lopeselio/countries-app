@@ -8,7 +8,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 // import Countries from "./screens/country"
-import Api from "./components/api"
+import Api from "./components/api2"
 
 function Feed({ navigation }) {
   return (
